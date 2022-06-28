@@ -61,11 +61,12 @@ setTasks([...tasks, data])
 
   // Delete Task
 const deleteTask = async (id) => {
-  await fetch( `http://locelhost:5000/tasks/${id}`,{
+  const res = await fetch( `http://locelhost:5000/tasks/${id}`,{
     method:"DELETE",
   })
-
-  setTasks(tasks.filter((task) => task.id !== id))
+res.status === 200 
+ ?  setTasks(tasks.filter((task) => task.id !== id))
+ : alert ("Error Deleting This Task")
 }
 
 //Toggle Reminder
@@ -77,7 +78,7 @@ const toggleReminder = async (id) => {
   const res = await fetch(`http://localhost:5000/tasks/${id}`,{
     method:"PUT",
     headers: {
-      "Content-type": "application/json"
+      "Content-type": "application/json",
     },
     body: JSON.stringify(updTask)
   })
